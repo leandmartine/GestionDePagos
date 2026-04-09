@@ -1,0 +1,27 @@
+@model CasosUso.DTOs.LimiteGastoDTO
+
+@{
+    ViewData["Title"] = "Detalle Límite de Gasto";
+}
+
+<h2>Detalle Límite de Gasto</h2>
+<hr />
+
+<dl class="row">
+    <dt class="col-sm-3">Id</dt>
+    <dd class="col-sm-9">@Model.Id</dd>
+
+    <dt class="col-sm-3">Usuario</dt>
+    <dd class="col-sm-9">@(Model.UsernameUsuario ?? Model.UsuarioId.ToString())</dd>
+
+    <dt class="col-sm-3">Categoría</dt>
+    <dd class="col-sm-9">@(Model.NombreCategoria ?? Model.CategoriaId.ToString())</dd>
+
+    <dt class="col-sm-3">Monto Máximo</dt>
+    <dd class="col-sm-9 fw-bold text-danger">$@Model.MontoMaximo.ToString("N2")</dd>
+
+    <dt class="col-sm-3">Valor de Alerta</dt>
+    <dd class="col-sm-9 fw-bold text-warning">$@Model.ValorAlerta.ToString("N2")</dd>
+</dl>
+
+<a asp-action="Index" class="btn btn-secondary">Volver</a>

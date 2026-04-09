@@ -1,0 +1,22 @@
+@model CasosUso.DTOs.MetodoPagoDTO
+
+@{
+    ViewData["Title"] = "Detalle Método de Pago";
+}
+
+<h2>Detalle Método de Pago</h2>
+<hr />
+
+<dl class="row">
+    <dt class="col-sm-3">Id</dt>
+    <dd class="col-sm-9">@Model.Id</dd>
+
+    <dt class="col-sm-3">Nombre</dt>
+    <dd class="col-sm-9">@Model.Nombre</dd>
+
+    <dt class="col-sm-3">Detalle</dt>
+    <dd class="col-sm-9">@Model.Detalle</dd>
+</dl>
+
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Editar</a>
+<a asp-action="Index" class="btn btn-secondary ms-2">Volver</a>

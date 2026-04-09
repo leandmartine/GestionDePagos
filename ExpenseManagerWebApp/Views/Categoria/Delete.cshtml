@@ -1,0 +1,23 @@
+@model CasosUso.DTOs.CategoriaDTO
+
+@{
+    ViewData["Title"] = "Eliminar Categoría";
+}
+
+<h2 class="text-danger">Eliminar Categoría</h2>
+<hr />
+<p class="text-muted">¿Está seguro que desea eliminar esta categoría?</p>
+
+<dl class="row">
+    <dt class="col-sm-3">Nombre</dt>
+    <dd class="col-sm-9">@Model.Nombre</dd>
+
+    <dt class="col-sm-3">Descripción</dt>
+    <dd class="col-sm-9">@Model.Descripcion</dd>
+</dl>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Confirmar Eliminación</button>
+    <a asp-action="Index" class="btn btn-secondary ms-2">Cancelar</a>
+</form>

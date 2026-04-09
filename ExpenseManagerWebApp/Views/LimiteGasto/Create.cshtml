@@ -1,0 +1,64 @@
+@model CasosUso.DTOs.LimiteGastoDTO
+
+@{
+    ViewData["Title"] = "Nuevo Límite de Gasto";
+}
+
+<h2>Nuevo Límite de Gasto</h2>
+<hr />
+<p class="text-muted">Define un tope de gasto por categoría para un usuario. Solo se permite un límite por usuario y categoría.</p>
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage as string))
+{
+    <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+}
+
+<div class="row">
+    <div class="col-md-5">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="UsuarioId" class="form-label fw-bold">Usuario</label>
+                <select asp-for="UsuarioId" asp-items="ViewBag.Usuarios" class="form-select">
+                    <option value="">-- Seleccione --</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="CategoriaId" class="form-label fw-bold">Categoría</label>
+                <select asp-for="CategoriaId" asp-items="ViewBag.Categorias" class="form-select">
+                    <option value="">-- Seleccione --</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="MontoMaximo" class="form-label fw-bold">Monto Máximo</label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input asp-for="MontoMaximo" class="form-control" type="number" step="0.01" min="0.01"
+                           placeholder="Ej: 10000" />
+                </div>
+                <span asp-validation-for="MontoMaximo" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ValorAlerta" class="form-label fw-bold">Valor de Alerta</label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input asp-for="ValorAlerta" class="form-control" type="number" step="0.01" min="0.01"
+                           placeholder="Ej: 8000 (debe ser menor al máximo)" />
+                </div>
+                <span asp-validation-for="ValorAlerta" class="text-danger"></span>
+                <div class="form-text">El valor de alerta debe ser menor al monto máximo.</div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a asp-action="Index" class="btn btn-secondary ms-2">Cancelar</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,94 @@
+@model CasosUso.DTOs.SuscripcionDTO
+
+@{
+    ViewData["Title"] = "Nueva Suscripción";
+}
+
+<h2>Nueva Suscripción</h2>
+<hr />
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage as string))
+{
+    <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="CreateSuscripcion" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="Descripcion" class="form-label fw-bold">Descripción</label>
+                <input asp-for="Descripcion" class="form-control" placeholder="Ej: Netflix, Spotify..." />
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-8">
+                    <label asp-for="Monto" class="form-label fw-bold">Monto</label>
+                    <input asp-for="Monto" class="form-control" type="number" step="0.01" min="0.01" />
+                    <span asp-validation-for="Monto" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Moneda" class="form-label fw-bold">Moneda</label>
+                    <select asp-for="Moneda" class="form-select">
+                        <option value="UYU">UYU</option>
+                        <option value="USD">USD</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Periodicidad" class="form-label fw-bold">Periodicidad</label>
+                <select asp-for="Periodicidad" class="form-select">
+                    <option value="0">Mensual</option>
+                    <option value="1">Trimestral</option>
+                    <option value="2">Anual</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="FechaProximoVencimiento" class="form-label fw-bold">Próximo Vencimiento</label>
+                <input asp-for="FechaProximoVencimiento" class="form-control" type="date" />
+                <span asp-validation-for="FechaProximoVencimiento" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Estado" class="form-label fw-bold">Estado</label>
+                <select asp-for="Estado" class="form-select">
+                    <option value="0">Activa</option>
+                    <option value="1">Suspendida</option>
+                    <option value="2">Cancelada</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="CategoriaId" class="form-label fw-bold">Categoría</label>
+                <select asp-for="CategoriaId" asp-items="ViewBag.Categorias" class="form-select">
+                    <option value="">-- Seleccione --</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="UsuarioId" class="form-label fw-bold">Usuario</label>
+                <select asp-for="UsuarioId" asp-items="ViewBag.Usuarios" class="form-select">
+                    <option value="">-- Seleccione --</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="MetodoPagoId" class="form-label fw-bold">Método de Pago</label>
+                <select asp-for="MetodoPagoId" asp-items="ViewBag.MetodosPago" class="form-select">
+                    <option value="">-- Seleccione --</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a asp-action="Index" class="btn btn-secondary ms-2">Cancelar</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

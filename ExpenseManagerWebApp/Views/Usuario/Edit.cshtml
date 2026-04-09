@@ -1,0 +1,62 @@
+@model CasosUso.DTOs.UsuarioDTO
+
+@{
+    ViewData["Title"] = "Editar Usuario";
+}
+
+<h2>Editar Usuario</h2>
+<hr />
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage as string))
+{
+    <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+}
+
+<div class="row">
+    <div class="col-md-5">
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="mb-3">
+                <label asp-for="Username" class="form-label fw-bold">Username</label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label fw-bold">Contraseña</label>
+                <input asp-for="Password" class="form-control" type="password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Rol" class="form-label fw-bold">Rol</label>
+                <select asp-for="Rol" class="form-select">
+                    <option value="Administrador">Administrador</option>
+                    <option value="Usuario">Usuario</option>
+                </select>
+            </div>
+            <fieldset class="border p-3 mb-3">
+                <legend class="float-none w-auto px-2 small">Dirección</legend>
+                <div class="mb-2">
+                    <label asp-for="Calle" class="form-label">Calle</label>
+                    <input asp-for="Calle" class="form-control" />
+                </div>
+                <div class="mb-2">
+                    <label asp-for="Ciudad" class="form-label">Ciudad</label>
+                    <input asp-for="Ciudad" class="form-control" />
+                </div>
+                <div class="mb-2">
+                    <label asp-for="CodigoPostal" class="form-label">Código Postal</label>
+                    <input asp-for="CodigoPostal" class="form-control" />
+                </div>
+            </fieldset>
+
+            <button type="submit" class="btn btn-warning">Guardar Cambios</button>
+            <a asp-action="Index" class="btn btn-secondary ms-2">Cancelar</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

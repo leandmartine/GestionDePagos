@@ -1,0 +1,71 @@
+@model CasosUso.DTOs.PagoDTO
+
+@{
+    ViewData["Title"] = "Detalle de Pago";
+    bool esPagoUnico = Model is CasosUso.DTOs.PagoUnicoDTO;
+    bool esCuotas = Model is CasosUso.DTOs.PagoCuotasDTO;
+    bool esSuscripcion = Model is CasosUso.DTOs.SuscripcionDTO;
+    var pagoUnico = Model as CasosUso.DTOs.PagoUnicoDTO;
+    var pagoCuotas = Model as CasosUso.DTOs.PagoCuotasDTO;
+    var suscripcion = Model as CasosUso.DTOs.SuscripcionDTO;
+}
+
+<h2>Detalle de Pago</h2>
+<hr />
+
+<dl class="row">
+    <dt class="col-sm-3">Id</dt>
+    <dd class="col-sm-9">@Model.Id</dd>
+
+    <dt class="col-sm-3">Tipo</dt>
+    <dd class="col-sm-9">
+        @if (esPagoUnico) { <span class="badge bg-primary">Pago Único</span> }
+        @if (esCuotas) { <span class="badge bg-warning text-dark">Pago en Cuotas</span> }
+        @if (esSuscripcion) { <span class="badge bg-success">Suscripción</span> }
+    </dd>
+
+    <dt class="col-sm-3">Monto</dt>
+    <dd class="col-sm-9">@Model.Monto.ToString("N2") @Model.Moneda</dd>
+
+    <dt class="col-sm-3">Descripción</dt>
+    <dd class="col-sm-9">@Model.Descripcion</dd>
+
+    <dt class="col-sm-3">Fecha Registro</dt>
+    <dd class="col-sm-9">@Model.FechaRegistro.ToString("dd/MM/yyyy HH:mm")</dd>
+
+    <dt class="col-sm-3">Categoría Id</dt>
+    <dd class="col-sm-9">@Model.CategoriaId</dd>
+
+    <dt class="col-sm-3">Usuario Id</dt>
+    <dd class="col-sm-9">@Model.UsuarioId</dd>
+
+    <dt class="col-sm-3">Método Pago Id</dt>
+    <dd class="col-sm-9">@Model.MetodoPagoId</dd>
+
+    @if (esPagoUnico && pagoUnico != null)
+    {
+        <dt class="col-sm-3">Fecha de Pago</dt>
+        <dd class="col-sm-9">@pagoUnico.FechaPago.ToString("dd/MM/yyyy")</dd>
+    }
+    @if (esCuotas && pagoCuotas != null)
+    {
+        <dt class="col-sm-3">Fecha Inicio</dt>
+        <dd class="col-sm-9">@pagoCuotas.FechaInicio.ToString("dd/MM/yyyy")</dd>
+
+        <dt class="col-sm-3">Cuotas</dt>
+        <dd class="col-sm-9">@pagoCuotas.CuotasPagadas / @pagoCuotas.CantidadCuotas pagadas</dd>
+    }
+    @if (esSuscripcion && suscripcion != null)
+    {
+        <dt class="col-sm-3">Periodicidad</dt>
+        <dd class="col-sm-9">@((GestionDePagos.Entidades.Periodicidad)suscripcion.Periodicidad)</dd>
+
+        <dt class="col-sm-3">Próximo Vencimiento</dt>
+        <dd class="col-sm-9">@suscripcion.FechaProximoVencimiento.ToString("dd/MM/yyyy")</dd>
+
+        <dt class="col-sm-3">Estado</dt>
+        <dd class="col-sm-9">@((GestionDePagos.Entidades.EstadoSuscripcion)suscripcion.Estado)</dd>
+    }
+</dl>
+
+<a asp-action="Index" class="btn btn-secondary">Volver</a>

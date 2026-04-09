@@ -1,0 +1,32 @@
+@model CasosUso.DTOs.PagoDTO
+
+@{
+    ViewData["Title"] = "Eliminar Pago";
+    string tipo = Model is CasosUso.DTOs.PagoUnicoDTO ? "Pago Único" :
+                  Model is CasosUso.DTOs.PagoCuotasDTO ? "Pago en Cuotas" :
+                  Model is CasosUso.DTOs.SuscripcionDTO ? "Suscripción" : "Pago";
+}
+
+<h2 class="text-danger">Eliminar Pago</h2>
+<hr />
+<p class="text-muted">¿Está seguro que desea eliminar este pago?</p>
+
+<dl class="row">
+    <dt class="col-sm-3">Tipo</dt>
+    <dd class="col-sm-9">@tipo</dd>
+
+    <dt class="col-sm-3">Descripción</dt>
+    <dd class="col-sm-9">@Model.Descripcion</dd>
+
+    <dt class="col-sm-3">Monto</dt>
+    <dd class="col-sm-9">@Model.Monto.ToString("N2") @Model.Moneda</dd>
+
+    <dt class="col-sm-3">Fecha Registro</dt>
+    <dd class="col-sm-9">@Model.FechaRegistro.ToString("dd/MM/yyyy")</dd>
+</dl>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Confirmar Eliminación</button>
+    <a asp-action="Index" class="btn btn-secondary ms-2">Cancelar</a>
+</form>

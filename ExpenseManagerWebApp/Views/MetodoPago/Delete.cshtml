@@ -1,0 +1,23 @@
+@model CasosUso.DTOs.MetodoPagoDTO
+
+@{
+    ViewData["Title"] = "Eliminar Método de Pago";
+}
+
+<h2 class="text-danger">Eliminar Método de Pago</h2>
+<hr />
+<p class="text-muted">¿Está seguro que desea eliminar este método de pago?</p>
+
+<dl class="row">
+    <dt class="col-sm-3">Nombre</dt>
+    <dd class="col-sm-9">@Model.Nombre</dd>
+
+    <dt class="col-sm-3">Detalle</dt>
+    <dd class="col-sm-9">@Model.Detalle</dd>
+</dl>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Confirmar Eliminación</button>
+    <a asp-action="Index" class="btn btn-secondary ms-2">Cancelar</a>
+</form>

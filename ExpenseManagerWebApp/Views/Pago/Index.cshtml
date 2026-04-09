@@ -1,0 +1,55 @@
+@model IEnumerable<CasosUso.DTOs.PagoDTO>
+
+@{
+    ViewData["Title"] = "Pagos";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Pagos</h2>
+    <div>
+        <a asp-action="CreatePagoUnico" class="btn btn-primary">+ Pago Único</a>
+        <a asp-action="CreatePagoCuotas" class="btn btn-outline-primary ms-1">+ Cuotas</a>
+        <a asp-action="CreateSuscripcion" class="btn btn-outline-primary ms-1">+ Suscripción</a>
+    </div>
+</div>
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage as string))
+{
+    <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+}
+
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Id</th>
+            <th>Tipo</th>
+            <th>Monto</th>
+            <th>Moneda</th>
+            <th>Descripción</th>
+            <th>Fecha Registro</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var p in Model)
+    {
+        string tipo = p is CasosUso.DTOs.PagoUnicoDTO ? "Único" :
+                      p is CasosUso.DTOs.PagoCuotasDTO ? "Cuotas" :
+                      p is CasosUso.DTOs.SuscripcionDTO ? "Suscripción" : "Pago";
+        string badgeClass = p is CasosUso.DTOs.PagoUnicoDTO ? "bg-primary" :
+                            p is CasosUso.DTOs.PagoCuotasDTO ? "bg-warning text-dark" : "bg-success";
+        <tr>
+            <td>@p.Id</td>
+            <td><span class="badge @badgeClass">@tipo</span></td>
+            <td>@p.Monto.ToString("N2")</td>
+            <td>@p.Moneda</td>
+            <td>@p.Descripcion</td>
+            <td>@p.FechaRegistro.ToString("dd/MM/yyyy")</td>
+            <td>
+                <a asp-action="Details" asp-route-id="@p.Id" class="btn btn-sm btn-info">Detalle</a>
+                <a asp-action="Delete" asp-route-id="@p.Id" class="btn btn-sm btn-danger">Eliminar</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

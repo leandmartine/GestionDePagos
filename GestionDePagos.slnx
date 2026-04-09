@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="CasosUso/DTOs.csproj" Id="62e53144-f8dc-46cc-9450-cb260c487431" />
+  <Project Path="Excepciones/Excepciones.csproj" Id="9ca1ddd2-5f2d-442f-ad55-c039ea5863bc" />
+  <Project Path="ExpenseManagerWebApp/ExpenseManagerWebApp.csproj" Id="ba0f905f-2091-4acf-8c75-8b28a962ae10" />
+  <Project Path="GestionDePagos/GestionDePagos.csproj" />
+  <Project Path="LogicaAccesoDatos/LogicaAccesoDatos.csproj" Id="f5964653-7554-4344-b8aa-747dc58a5d70" />
+  <Project Path="LogicaAplicacion/LogicaAplicacion.csproj" Id="bf837356-7a16-467d-bcc8-a08767ce07a9" />
+</Solution>
